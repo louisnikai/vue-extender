@@ -34,3 +34,21 @@ PS: It's better to import and use it after import each other packages in main.js
 <br />
 <br />
 <br />
+
+# Usage
+
+## Instructions
+
+### Extend Details:
+
+**Vue:**
+
+- `defineField`
+- `defineFields`
+- `defineProperty`
+- `defineProperties`
+- `prototype.findChildrenByClass`
+
+<br />
+<br />
+<br />
