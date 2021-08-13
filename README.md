@@ -48,6 +48,15 @@ PS: It's better to import and use it after import each other packages in main.js
 - `defineProperty`
 - `defineProperties`
 - `prototype.findChildrenByClass`
+- `prototype.closeWindow`
+
+<br />
+<br />
+<br />
+
+# Change Log
+
+<a href="https://github.com/louisnikai/vue-extender/blob/master/CHANGELOG.md">CHANGELOG.md</a>
 
 <br />
 <br />

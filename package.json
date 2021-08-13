@@ -1,6 +1,6 @@
 {
   "name": "vue-extender",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "title": "Vue Extender",
   "description": "Extend some methods for vue.",
   "author": "Louis Ni <louisnikai@gmail.com>",
@@ -24,7 +24,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "start": "npm run dev",
     "compile": "babel -d lib/ src/",
-    "prepare": "npm run build && npm run compile",
+    "prepare": "npm run compile",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit"
   },
