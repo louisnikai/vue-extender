@@ -7,7 +7,7 @@ const _typeOf = (value) => {
 
 export function runBasicExtender(Vue = ImportedVue) {
   Vue.defineField = Vue.defineField || function (target, key, field) {
-    if (!target || !key || !field) return;
+    if (!target || !key) return;
 
     target[key] = target[key] || field;
   };
