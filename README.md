@@ -49,6 +49,8 @@ PS: It's better to import and use it after import each other packages in main.js
 - `defineProperties`
 - `prototype.findChildrenByClass`
 - `prototype.closeWindow`
+- `prototype.sleep`
+- `prototype.wait`
 
 <br />
 <br />
