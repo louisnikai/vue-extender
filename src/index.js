@@ -2,6 +2,35 @@ import {
   runBasicExtender
 } from "./basic.extender";
 
+function _typeOf(value) {
+  return Object.prototype.toString.call(value).match(/^\[object\s(.*)\]$/)[1].toLowerCase();
+}
+
+const sleep = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+};
+
+const wait = async (callback, time = 100, tryCount = 0) => {
+  const result = {
+    isSuccess: false,
+    triedCount: 0
+  };
+
+  if (_typeOf(callback) !== "function") return result;
+
+  while (true) {
+    if (!!tryCount && result.triedCount >= tryCount) return result;
+
+    result.triedCount++;
+    let cbResult = await callback();
+    if (cbResult) {
+      result.isSuccess = true;
+      return result;
+    }
+    await _sleep(time);
+  }
+};
+
 const findChildrenByClass = (className, vueCom = null) => {
   if (!vueCom)
     vueCom = this;
@@ -42,6 +71,8 @@ const runAllExtenders = (Vue) => {
   runBasicExtender(Vue);
 
   Vue.defineFields(Vue.prototype, {
+    "sleep": sleep,
+    "wait": wait,
     "findChildrenByClass": findChildrenByClass,
     "closeWindow": closeWindow
   });
