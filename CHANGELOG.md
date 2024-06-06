@@ -6,7 +6,7 @@
 
 - Fixed an issue for Vue.defineField method.
 
-### v1.0.4
+### v1.0.5
 
 - Add prototype.sleep method.
 - Add prototype.wait method.

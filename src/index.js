@@ -27,7 +27,7 @@ const wait = async (callback, time = 100, tryCount = 0) => {
       result.isSuccess = true;
       return result;
     }
-    await _sleep(time);
+    await sleep(time);
   }
 };
 
