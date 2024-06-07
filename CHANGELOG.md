@@ -11,6 +11,10 @@
 - Add prototype.sleep method.
 - Add prototype.wait method.
 
+### v1.0.6
+
+- Add force replace mode for basic methods(defineField, defineFields, defineProperty, defineProperties).
+
 <br />
 <br />
 <br />

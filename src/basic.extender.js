@@ -6,24 +6,24 @@ const _typeOf = (value) => {
 };
 
 export function runBasicExtender(Vue = ImportedVue) {
-  Vue.defineField = Vue.defineField || function (target, key, field) {
+  Vue.defineField = Vue.defineField || function (target, key, field, forcedReplace = false) {
     if (!target || !key) return;
 
-    target[key] = target[key] || field;
+    if (!target[key] || forcedReplace)
+      target[key] = field;
   };
 
-  Vue.defineField(Vue, "defineFields", (target, fieldOptions) => {
+  Vue.defineField(Vue, "defineFields", (target, fieldOptions, forcedReplace = false) => {
     if (!target || !fieldOptions) return;
     if (_typeOf(fieldOptions) !== "object") return;
 
     Object.entries(fieldOptions).forEach(([key, value]) => {
-      Vue.defineField(target, key, value);
+      Vue.defineField(target, key, value, forcedReplace);
     });
   });
 
-  Vue.defineField(Vue, "defineProperty", (target, key, propOption, isDefineReactive = false) => {
+  Vue.defineField(Vue, "defineProperty", (target, key, propOption, isDefineReactive = false, forcedReplace = false) => {
     if (!target || !key || !propOption) return;
-    if (!!(key in target)) return;
     if (_typeOf(propOption) !== "object") return;
 
     let needDefineReactive = false;
@@ -36,21 +36,25 @@ export function runBasicExtender(Vue = ImportedVue) {
         delete prop[_defineReactiveKey];
     }
 
+    prop.configurable = true;
     if (needDefineReactive) {
       prop.enumerable = true;
-      prop.configurable = true;
     }
-    Object.defineProperty(target, key, prop);
-    if (needDefineReactive)
-      Vue.util.defineReactive(target, key);
+
+    let isExist = !!(key in target);
+    if (!isExist || forcedReplace) {
+      Object.defineProperty(target, key, prop);
+      if (needDefineReactive)
+        Vue.util.defineReactive(target, key);
+    }
   });
 
-  Vue.defineField(Vue, "defineProperties", (target, propOptions, isDefineReactive = false) => {
+  Vue.defineField(Vue, "defineProperties", (target, propOptions, isDefineReactive = false, forcedReplace = false) => {
     if (!target || !propOptions) return;
     if (_typeOf(propOptions) !== "object") return;
 
     Object.entries(propOptions).forEach(([key, value]) => {
-      Vue.defineProperty(target, key, value, isDefineReactive);
+      Vue.defineProperty(target, key, value, isDefineReactive, forcedReplace);
     });
   });
 };
